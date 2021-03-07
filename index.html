@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Global Average Temperatures</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    </script>
+
+  </head>
+  <body>
+    <h1>Global Average Temperatures 1880-2018 (Land-Surface, Sea, and Air)</h1>
+    <canvas id="myChart" width="900" height="400"></canvas>
+    <script>
+      
+
+      chartIt();
+
+      async function chartIt() {
+        const data = await getData();
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.Xs,
+                datasets: [{
+                    label: 'Average Global Temperature of the World',
+                    data: data.GYs,
+                    borderColor: 
+                        'rgba(255, 0, 0, 1)',
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointStyle: 'circle',
+                    lineTension: 0.2,
+                }, 
+                {
+                  label: 'Northern Hemisphere',
+                    data: data.NHemYs,
+                    borderColor: 
+                        '#2d76b5',
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointStyle: 'circle',
+                    lineTension: 0.2
+                },
+                {
+                  label: 'Southern Hemisphere',
+                    data: data.SHemYs,
+                    borderColor: 
+                        '#32a852',
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointStyle: 'circle',
+                    lineTension: 0.2
+                }
+              ],
+            },
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      callback: function(value, index, values) {
+                        return value + '°C'
+                      },
+                      fontColor: 'black',
+                      suggestedMin: 13,
+                      suggestedMax: 15
+                    },
+                    gridLines: {
+                        display: false,
+                        color: '#7f2db5'
+                    }
+                  }
+                ],
+
+                xAxes: [{
+                  ticks: {
+                    fontSize: 18,
+                    fontColor: 'black'
+                  },
+                  gridLines: {
+                    display: true,
+                    color: 'rgba(127, 45, 181, 0.3)'
+                  }
+                }]           
+              },
+              legend: {
+                labels: {
+                  fontColor: 'red',
+
+                }
+              },
+              plugins: {
+                zoom: {
+                  pan: {
+                    enabled: true,
+
+                    mode: 'xy',
+
+                    rangeMin: {
+                      x: null,
+                      y: null
+                    },
+                    rangeMax: {
+                      x: null,
+                      y: null
+                    },
+
+                    speed: 20,
+
+                    threshold: 10,
+
+                    onPan: function({chart}) { console.log(`I'm panning!!!`); },
+                    onPanComplete: function({chart}) { console.log(`I was panned!!!`); }
+                  },
+                  zoom: {
+                  
+                  enabled: true,
+                  
+                  mode: 'xy',
+
+                  rangeMin: {
+                    x: null,
+                    y: null
+                  },
+                  rangeMax: {
+                    x: null,
+                    y: null
+                  },
+
+                  speed: 0.1,
+
+                  threshold: 2,
+
+                  sensitivity: 3,
+
+                  onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
+                  onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); }
+                }
+              }
+            }
+          }
+        });
+
+        
+      }
+
+      async function getData() {
+        const Xs = [];
+        const GYs = [];
+        const NHemYs = [];
+        const SHemYs = [];
+
+
+
+        const response = await fetch('ZonAnn.Ts+dSST.csv');
+        const data = await response.text();
+
+        const table = data.split('\n').slice(1);
+
+        table.forEach(row => {
+          const columns = row.split(',');
+          const year = columns[0];
+
+          Xs.push(year);
+
+          const globalTemp = columns[1];
+          const nHemTemp = columns[2];
+          const sHemTemp = columns[3];
+
+
+          GYs.push(parseFloat(globalTemp) + 14);
+          NHemYs.push(parseFloat(nHemTemp) + 14);
+          SHemYs.push(parseFloat(sHemTemp) + 14);
+        });
+        
+        return { Xs, GYs, NHemYs, SHemYs };
+      }
+
+
+    </script>
+  </body>
+</html>
+</html>
