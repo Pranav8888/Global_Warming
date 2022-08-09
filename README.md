@@ -10,7 +10,7 @@ The truth is the earth doesn't need saving. It's going to be here regardless of 
 ![Image](https://i.pinimg.com/originals/86/37/91/863791b8ceee324badde2d9352f65c5a.jpg)
 
 ## Links
-###Chart JS Library
+### Chart JS Library
 https://www.chartjs.org/
 ### GISS Data
 https://data.giss.nasa.gov/gistemp/
