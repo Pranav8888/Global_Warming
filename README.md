@@ -6,7 +6,7 @@ This project was inspired by my _interest_ toward computer programming and the d
 The graph above shows _drastic_ *increase* in *Global Temperatures* which overall illustates why it is important to "save" our earth(_sarcasm_). 
 
 ## Food for thought...
-The truth is the earth doesn't need saving. It's going to be here regardless of whether it is 500 Degrees Celsius or 5 Degrees Celsius. _But the question is will we be here?_ *We NEED SAVING.* _We need to SAVE ourselves, not the Earth._ 
+The truth is the earth doesn't need saving. It's going to be here regardless of whether it is 500 Degrees Celsius or 5 Degrees Celsius. _But the question is: Will we be here?_ *We NEED SAVING.* _We need to SAVE ourselves, not the Earth._ 
 ![Image](https://i.pinimg.com/originals/86/37/91/863791b8ceee324badde2d9352f65c5a.jpg)
 
 ## Links
